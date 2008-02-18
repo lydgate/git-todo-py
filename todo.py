@@ -275,6 +275,12 @@ Options:
     print text
     sys.exit()
 
+def commit(files,msg):
+    os.chdir(TODO_DIR)
+    for i in files:
+        os.spawnlp(os.P_WAIT,"git","git","add",i)
+    os.spawnlp(os.P_WAIT,"git","git","commit","-m","%s" % msg)
+
 def setDirs(dir):
     """Your todo/done/report.txt locations"""
     global TODO_DIR, TODO_FILE, DONE_FILE, RECUR_FILE, REPORT_FILE, TODO_BACKUP, DONE_BACKUP
@@ -423,7 +429,9 @@ def add(text):
     f = open(TODO_FILE, "a")
     f.write(text + os.linesep)
     f.close()
-    if not quiet: print "Added: ", text
+    msg = "Added: " + text
+    if not quiet: print msg
+    commit(['todo.txt'],msg)
 
 def setPriority(text):
     """Handle priority if exisiting in supplied text"""
@@ -529,9 +537,14 @@ def do(items, comments=None):
 
         date = time.strftime("%Y-%m-%d", time.localtime())
         print "Done %d: %s" % (item, tasks[item])
+        try:
+            msg += "Done %d: %s\n" % (item, tasks[item])
+        except:
+            msg = "Done %d: %s\n" % (item, tasks[item])
         tasks[item] = " ".join(["x", date, tasks[item]])
     writeTasks(tasks)
     archive()
+    commit(['todo.txt','done.txt'],msg)
 
 def done(item):
     """add a completed task directly to done file"""
