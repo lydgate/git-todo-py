@@ -865,16 +865,29 @@ def prioritize(item, newpriority):
         sys.exit(1)
 
     re_pri = re.compile(r"\([A-Z]\) ")
+    try:
+        oldpriority = re.search(re_pri, tasks[item]).group(0)
+    except:
+        oldpriority = ""
+    if oldpriority == "(%s) " % newpriority \
+            or oldpriority == "" and newpriority == "" :
+        print "Priority unchanged"
+        sys.exit(1)
 
     if (newpriority == ""):
         # remove the existing priority
         tasks[item] = re.sub(re_pri, "", tasks[item])
+        msg = 'Removed priority for %d: %s' % (item,tasks[item])
     elif (re.match(re_pri, tasks[item])):
         tasks[item] = re.sub(re_pri, "(" + newpriority + ") ", tasks[item])
+        msg = 'Changed priority for %d: %s-> %s' % (item,oldpriority,tasks[item])
     else:
         tasks[item] = "(" + newpriority + ") " + tasks[item]
+        msg = 'Set priority for %d: %s' % (item,tasks[item])
 
+    if not quiet: print msg
     writeTasks(tasks)
+    commit(['todo.txt'],msg)
 
 def hasPriority(text):
     re_pri = re.compile(r"^\(([A-Z])\) ")
