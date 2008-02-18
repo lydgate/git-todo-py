@@ -3,6 +3,7 @@
 TODO.TXT Manager - Python Version
 Author          : Shane Koster <shane.koster@gmail.com>
 Modified by     : Graham Davies <grahamdaviez@gmail.com>
+Modified by     : Bryan Kam <todo@lydgate.e4ward.com>
 Concept by      : Gina Trapani (ginatrapani@gmail.com
 License         : GPL, http://www.gnu.org/copyleft/gpl.html
 More info       : http://todotxt.com
@@ -13,9 +14,9 @@ Project todo.txt: http://todo-py.googlecode.com/svn/trunk/todo.txt
 
 __version__   = "1.8.1-py-trunk"
 __revision__  = "$Revision: 104 $"
-__date__      = "2006/07/29"
+__date__      = "2008/02/18"
 __author__    = "Shane Koster (shane.koster@gmail.com)"
-__copyright__ = "Copyright 2006, Gina Trapani"
+__copyright__ = "Copyright 2006, Gina Trapani, Bryan Kam"
 __license__   = "GPL"
 __history__   = "See http://todo-py.googlecode.com/svn/trunk/CHANGELOG"
 
@@ -224,11 +225,12 @@ def help(longmessage = False):
   Version """ + __version__ + " " + __revision__[1:-1] + """
   Copyleft 2006, Gina Trapani (ginatrapani@gmail.com)
   Copyleft 2006, Shane Koster (shane.koster@gmail.com)
+  Copyleft 2008, Bryan Kam (todo@lydgate.e4ward.com)
 """
     else:
 
         text = "todo.txt manager " + __version__ + " " + __revision__[1:-1] + """
-Copyleft 2006  Gina Trapani, Shane Koster
+Copyleft 2008  Gina Trapani, Shane Koster, Bryan Kam
 
 Usage: todo.py [options] [ACTION] [PARAM...]
 
