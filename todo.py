@@ -947,7 +947,10 @@ def addChild(parent, text):
     items.insert(parent + 1,text)
 
     writeTaskList(items)
-    if not quiet: print "%d got child: %s " % (parent, text)
+    msg = "%d got child: %s " % (parent, text)
+    if not quiet: print msg
+    commit(['todo.txt'],msg)
+
 
 def addParent(child, text):
     """Give a task a parent task - and make it a child"""
@@ -969,7 +972,9 @@ def addParent(child, text):
     items.insert(parent + 1, text)
 
     writeTaskList(items)
-    if not quiet: print "%d got parent: %s " % (child, text)
+    msg = "%d got parent: %s " % (child, text)
+    if not quiet: print msg
+    commit(['todo.txt'],msg)
 
 def newParent(child, parent):
     """Give a task to a parent task, make it a child"""
@@ -985,7 +990,9 @@ def newParent(child, parent):
     else:
         items.pop(child)
     writeTaskList(items)
-    if not quiet: print "%d now belongs to parent: %s " % (child, parent)
+    msg = "%d now belongs to parent: %s " % (child, parent)
+    if not quiet: print msg
+    commit(['todo.txt'],msg)
 
 def isChild(text):
     if text.startswith(childSymbol):
