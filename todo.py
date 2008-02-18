@@ -772,7 +772,6 @@ def removeDuplicates():
     theSet = sets.Set(taskCopy.values())
     dupCount = len(taskCopy) - len(theSet)
     if dupCount > 0:
-        print "Removing %d duplicates." % (dupCount)
         count = 0
         tasks = {}
         for k,v in taskCopy.iteritems():
@@ -781,6 +780,9 @@ def removeDuplicates():
                 tasks[ count ] = v
                 theSet.remove(v)
         writeTasks(tasks)
+        msg = "Removed %d duplicates." % (dupCount)
+        print msg
+        commit(['todo.txt'],msg)
     else:
         print "There are no duplicates to eliminate!"
     sys.exit()
