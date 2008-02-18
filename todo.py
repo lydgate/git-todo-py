@@ -555,7 +555,9 @@ def done(item):
     f = open(DONE_FILE, "a")
     f.write(text + os.linesep)
     f.close()
-    if not quiet: print "Done: %s" % item
+    msg = "Done: %s" % item
+    if not quiet: print msg
+    commit(['done.txt'],msg)
 
 def list(patterns=None, userinput=True, showChildren=False, \
         listDone=False, matchAny=False, dates=None):
