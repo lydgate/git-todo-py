@@ -105,7 +105,7 @@ WIN_GREY     = 0x08
 ############################################################
 # Be careful changing things below here
 
-import re, os, sys, time, getopt, sets
+import re, os, sys, time, getopt, sets, subprocess
 from shutil import copyfile
 
 def usage():
@@ -284,8 +284,8 @@ Options:
 def commit(files,msg):
     os.chdir(TODO_DIR)
     for i in files:
-        os.spawnlp(os.P_WAIT,"git","git","add",i)
-    os.spawnlp(os.P_WAIT,"git","git","commit","-m","%s" % msg)
+        subprocess.Popen(["git","add",i]).wait()
+    subprocess.Popen(["git","commit","-m","%s" % msg]).wait()
 
 def setDirs(dir):
     """Your todo/done/report.txt locations"""
@@ -1186,7 +1186,7 @@ if __name__ == "__main__":
         list(x, False)
     elif (action == "l" or action == "log"):
         os.chdir(TODO_DIR)
-        os.spawnlp(os.P_WAIT,"git","git","log")
+        subprocess.Popen(["git","log"]).wait()
     elif (action == "pri" or action == "p"):
         if (len(args) == 2 and args[0].isdigit() and args[1].isalpha()):
             prioritize(int(args[0]), args[1])
