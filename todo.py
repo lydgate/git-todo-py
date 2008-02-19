@@ -663,6 +663,7 @@ def removeDone(tasks):
 
 def listKeywords():
     """Preliminary function to count keywords in todo and done files"""
+    sys.stdout = os.popen(PAGER,'w')
     items = []
     tasks = getTaskDict()
     numTasks = len(tasks)
