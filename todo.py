@@ -584,6 +584,10 @@ def list(patterns=None, userinput=True, showChildren=False, \
         matchAny  - switch, patterns are AND (False) or OR (True) matched
         dates     - list of date patterns for search OR matched
     """
+    # Reset the repo, since it may have been pushed or whatever.
+    os.chdir(TODO_DIR)
+    subprocess.Popen(["git","checkout","-f"]).wait()
+    # Open a pager by default for lists
     sys.stdout = os.popen(PAGER,'w')
     items = []
     temp = {}
