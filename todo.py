@@ -108,6 +108,12 @@ WIN_GREY     = 0x08
 import re, os, sys, time, getopt, sets, subprocess
 from shutil import copyfile
 
+# Guess the pager!
+try:
+    PAGER = os.environ['PAGER']
+except KeyError:
+    PAGER = 'less'
+
 def usage():
     text =  "Usage: todo.py [options] [ACTION] [PARAM...] \n"
     text += "Try `todo.py -h' for more information."
@@ -578,6 +584,7 @@ def list(patterns=None, userinput=True, showChildren=False, \
         matchAny  - switch, patterns are AND (False) or OR (True) matched
         dates     - list of date patterns for search OR matched
     """
+    sys.stdout = os.popen(PAGER,'w')
     items = []
     temp = {}
     tasks = getTaskDict()
@@ -656,6 +663,7 @@ def removeDone(tasks):
 
 def listKeywords():
     """Preliminary function to count keywords in todo and done files"""
+    sys.stdout = os.popen(PAGER,'w')
     items = []
     tasks = getTaskDict()
     numTasks = len(tasks)
