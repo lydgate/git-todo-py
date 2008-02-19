@@ -504,7 +504,9 @@ def delete(item):
         tasks[item + 1] = growChild(tasks[item + 1])
     deleted = tasks.pop(item)
     writeTasks(tasks)
-    if not quiet: print "Deleted: ", deleted
+    msg = "Deleted: ", deleted
+    if not quiet: print msg
+    commit(['todo.txt'],msg)
 
 def backup(orig, backup):
     """Make a copy of the file before writing data"""
