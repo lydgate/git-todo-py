@@ -174,6 +174,9 @@ def help(longmessage = False):
       Displays all items prioritized PRIORITY.
       If no PRIORITY specified, lists all prioritized items.
 
+    log
+      Displays the git log associated with todo.txt.
+
     pri NUMBER PRIORITY
       Adds PRIORITY to todo on line NUMBER.  If the item is already
       prioritized, replaces current priority with new PRIORITY.
@@ -235,6 +238,7 @@ Copyleft 2008  Gina Trapani, Shane Koster, Bryan Kam
 Usage: todo.py [options] [ACTION] [PARAM...]
 
  a,   add "TODO p:project @context"   Add TODO to your todo.txt
+ l,   log                             Display todo.txt's git log
  ls,  list  [TERM] [[TERM]...]        Display todo's that contain TERM
  lsa, list  [TERM] [[TERM]...]        Display todo's and children
  lsp, lspri [PRIORITY]                Display all items prioritized PRIORITY
@@ -1178,6 +1182,9 @@ if __name__ == "__main__":
         else:
             x = ["\([A-Z]\)"]
         list(x, False)
+    elif (action == "l" or action == "log"):
+        os.chdir(TODO_DIR)
+        os.spawnlp(os.P_WAIT,"git","git","log")
     elif (action == "pri" or action == "p"):
         if (len(args) == 2 and args[0].isdigit() and args[1].isalpha()):
             prioritize(int(args[0]), args[1])
