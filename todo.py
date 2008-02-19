@@ -510,7 +510,7 @@ def delete(item):
         tasks[item + 1] = growChild(tasks[item + 1])
     deleted = tasks.pop(item)
     writeTasks(tasks)
-    msg = "Deleted: ", deleted
+    msg = "Deleted: %s" % deleted
     if not quiet: print msg
     commit(['todo.txt'],msg)
 
