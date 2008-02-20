@@ -206,6 +206,12 @@ def help(longmessage = False):
     er
       Opens your recur.txt file with $EDITOR or /etc/alternatives/editor.
 
+    pull
+      Pull changes to remote git repository
+
+    push
+      Push changes to remote git repository
+
     replace NUMBER "UPDATED TODO"
       Replaces todo on line NUMBER with UPDATED TODO.
 
@@ -252,6 +258,8 @@ Usage: todo.py [options] [ACTION] [PARAM...]
  lsr, [all]projects                   Display projects in todo.txt *
  lsk, [all]keywords                   Display projects and contexts  *
  p,   pri NUMBER PRIORITY             Set PRIORITY on todo NUMBER
+      pull                            Pull from git
+      push                            Push to git
       do NUMBER [COMMENT]             Mark item NUMBER as done
       done "DONE p:project @context"  Add DONE to your done.txt
       append NUMBER "TEXT"            Add to the end of the todo
@@ -588,7 +596,6 @@ def list(patterns=None, userinput=True, showChildren=False, \
     os.chdir(TODO_DIR)
     subprocess.Popen(["git","checkout","-f"]).wait()
     # Open a pager by default for lists
-    sys.stdout = os.popen(PAGER,'w')
     items = []
     temp = {}
     tasks = getTaskDict()
@@ -607,9 +614,13 @@ def list(patterns=None, userinput=True, showChildren=False, \
 
     if not showChildren: tasks = hideChildren(tasks)
 
+    taskNumber = 0
     # Format gathered tasks
     for k,v in tasks.iteritems():
+        taskNumber += 1
         items.append("%3d: %s" % (k, v))
+    if taskNumber > 20:
+        sys.stdout = os.popen(PAGER,'w')
 
     # Print this before the tasks to make jabber bot pretty
     if verbose:
@@ -1207,6 +1218,12 @@ if __name__ == "__main__":
             prioritize(int(args[0]), "")
         else:
             print "Usage: " + sys.argv[0] + " pri <item_num> [PRIORITY]"
+    elif (action == "pull"):
+        os.chdir(TODO_DIR)
+        subprocess.Popen(["git","pull"]).wait()
+    elif (action == "push"):
+        os.chdir(TODO_DIR)
+        subprocess.Popen(["git","pull"]).wait()
     elif (action == "replace"):
         if (len(args) > 1 and args[0].isdigit()):
             replace(int(args[0]), " ".join(args[1:]))
