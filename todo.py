@@ -1223,7 +1223,7 @@ if __name__ == "__main__":
         subprocess.Popen(["git","pull"]).wait()
     elif (action == "push"):
         os.chdir(TODO_DIR)
-        subprocess.Popen(["git","pull"]).wait()
+        subprocess.Popen(["git","push"]).wait()
     elif (action == "replace"):
         if (len(args) > 1 and args[0].isdigit()):
             replace(int(args[0]), " ".join(args[1:]))
