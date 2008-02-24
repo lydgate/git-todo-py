@@ -30,7 +30,7 @@ TODO_DIR = ''
 # ANSI (light|dark|nocolor) or Windows Console (windark)
 # Or use -t theme flag
 # Or use BGCOL environment variable
-defaultTheme = 'light'
+defaultTheme = 'dark'
 
 # Set default verbosity level with False or True
 # True will display various messages after each action - useful for bots
@@ -619,9 +619,9 @@ def list(patterns=None, userinput=True, showChildren=False, \
     for k,v in tasks.iteritems():
         taskNumber += 1
         items.append("%3d: %s" % (k, v))
-    if taskNumber > 20:
+    rows = os.popen('tput lines').readline()
+    if taskNumber > int(rows):
         sys.stdout = os.popen(PAGER,'w')
-
     # Print this before the tasks to make jabber bot pretty
     if verbose:
         print "todo.py: %d tasks in %s:" % ( len(items), TODO_FILE )
