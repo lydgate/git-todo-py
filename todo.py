@@ -150,6 +150,9 @@ def help(longmessage = False):
     archive
       Moves done items from todo.txt to done.txt.
 
+    commit
+      Commit any changes to git repository (git commit -a).
+
     del NUMBER
     rm  NUMBER
       Deletes the item on line NUMBER in todo.txt.
@@ -250,6 +253,7 @@ Copyleft 2008  Gina Trapani, Shane Koster, Bryan Kam
 Usage: todo.py [options] [ACTION] [PARAM...]
 
  a,   add "TODO p:project @context"   Add TODO to your todo.txt
+ c,   commit                          Commit changes to git
  l,   log                             Display todo.txt's git log
  ls,  list  [TERM] [[TERM]...]        Display todo's that contain TERM
  lsa, list  [TERM] [[TERM]...]        Display todo's and children
@@ -1221,6 +1225,9 @@ if __name__ == "__main__":
     elif (action == "pull"):
         os.chdir(TODO_DIR)
         subprocess.Popen(["git","pull"]).wait()
+    elif (action == "commit" or action == "c"):
+        os.chdir(TODO_DIR)
+        subprocess.Popen(["git","commit","-a"]).wait()
     elif (action == "push"):
         os.chdir(TODO_DIR)
         subprocess.Popen(["git","push"]).wait()
