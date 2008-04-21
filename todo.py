@@ -218,7 +218,7 @@ def help(longmessage = False):
     replace NUMBER "UPDATED TODO"
       Replaces todo on line NUMBER with UPDATED TODO.
 
-    remdup
+    rmdup
       Removes exact duplicate lines from todo.txt.
 
     report
@@ -273,7 +273,7 @@ Usage: todo.py [options] [ACTION] [PARAM...]
  e,   edit                            Opens todo.txt in $EDITOR
 ed,   edone                           Opens done.txt in $EDITOR
 er,   erecur                          Opens recur.txt in $EDITOR
-      remdup                          Remove exact duplicate todo's
+      rmdup                          Remove exact duplicate todo's
 ar,   archive                         Move done items to done.txt
       report                          Add todo and done count to report.txt
  b,   birdseye                        Bird's eye view report
@@ -1241,7 +1241,7 @@ if __name__ == "__main__":
         edit(DONE_FILE)
     elif (action == "erecur" or action == "er"):
         edit(RECUR_FILE)
-    elif (action == "remdup"):
+    elif (action == "rmdup"):
         removeDuplicates()
     elif (action == "report"):
         report()
