@@ -598,7 +598,6 @@ def list(patterns=None, userinput=True, showChildren=False, \
     """
     # Reset the repo, since it may have been pushed or whatever.
     os.chdir(TODO_DIR)
-    subprocess.Popen(["git","checkout","-f"]).wait()
     # Open a pager by default for lists
     items = []
     temp = {}
