@@ -1208,11 +1208,11 @@ if __name__ == "__main__":
             list(listDone=False, showChildren=True)
     elif (action == "lsp" or action == "lspri" or action == "listpri"):
         if (len(args) > 0):
-            pattern = re.escape(args[0])
-            x = ["\([" + pattern + "]\)"]
+            x = ["\([A-Z]\) %s" % args[0]]
+            list(x, False)
         else:
             x = ["\([A-Z]\)"]
-        list(x, False)
+            list(x, False)
     elif (action == "l" or action == "log"):
         os.chdir(TODO_DIR)
         subprocess.Popen(["git","log"]).wait()
