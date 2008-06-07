@@ -570,7 +570,10 @@ def do(items, comments=None):
         tasks[item] = " ".join(["x", date, tasks[item]])
     writeTasks(tasks)
     archive()
-    commit(['todo.txt','done.txt'],msg)
+    try:
+        commit(['todo.txt','done.txt'],msg)
+    except UnboundLocalError:
+        pass
 
 def done(item):
     """add a completed task directly to done file"""
