@@ -329,7 +329,7 @@ def setDirs(dir):
 
 def setTheme(theme):
     """Set colors for use when printing text"""
-    global PRI_A, PRI_B, PRI_C, PRI_X, DEFAULT
+    global PRI_A, PRI_B, PRI_C, PRI_Z, PRI_X, DEFAULT
 
     # Set the theme from BGCOL environment variable
     # only set if not set by cmdline flag
@@ -346,22 +346,26 @@ def setTheme(theme):
         PRI_A = RED
         PRI_B = GREEN
         PRI_C = LIGHT_BLUE
+        PRI_Z = BLUE
         PRI_X = PURPLE
     elif theme == "dark":
         PRI_A = YELLOW
         PRI_B = LIGHT_GREEN
         PRI_C = LIGHT_PURPLE
+        PRI_Z = RED
         PRI_X = WHITE
     elif theme == "windark" and os.name == 'nt':
         PRI_A = WIN_YELLOW
         PRI_B = WIN_GREEN
         PRI_C = WIN_LBLUE
+        PRI_Z = WIN_RED
         PRI_X = WIN_GREY
         DEFAULT = WIN_WHITE
     else:
         PRI_A = NONE
         PRI_B = NONE
         PRI_C = NONE
+        PRI_Z = NONE
         PRI_X = NONE
         DEFAULT = NONE
 
@@ -873,6 +877,8 @@ def highlightWindows(matchobj):
         set_wincolor(PRI_B)
     elif (matchobj.group(1) == "(C)"):
         set_wincolor(PRI_C)
+    elif (matchobj.group(1) == "(Z)"):
+        set_wincolor(PRI_Z)
     else:
         set_wincolor(PRI_X)
     return matchobj.group(0)
@@ -885,6 +891,8 @@ def highlightPriority(matchobj):
         return PRI_B + matchobj.group(0) + DEFAULT
     elif (matchobj.group(1) == "(C)"):
         return PRI_C + matchobj.group(0) + DEFAULT
+    elif (matchobj.group(1) == "(Z)"):
+        return PRI_Z + matchobj.group(0) + DEFAULT
     else:
         return PRI_X + matchobj.group(0) + DEFAULT
 
