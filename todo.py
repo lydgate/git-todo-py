@@ -105,7 +105,7 @@ WIN_GREY     = 0x08
 ############################################################
 # Be careful changing things below here
 
-import re, os, sys, time, getopt, sets, subprocess
+import re, os, sys, time, getopt, subprocess
 from shutil import copyfile
 
 # Guess the pager!
@@ -417,7 +417,7 @@ def getDoneList():
 
 def getList(file):
     """A utility method to obtain a list of tasks from a file
-    To keep the list numbering consistant with the Dict and with the human 
+    To keep the list numbering consistant with the Dict and with the human
     numbering system - miss out the 0 index"""
     tasks = []
     tasks.append(None)
@@ -438,7 +438,7 @@ def writeTaskList(taskList):
         if not task: continue
         f.write(task + os.linesep)
     f.close()
-    
+
 def writeDoneList(taskList):
     """a utility method to write a list of tasks to the TODO file"""
     backup(DONE_FILE, DONE_BACKUP)
@@ -783,7 +783,7 @@ def replace(item, text):
     if (not tasks.has_key(item)):
         print "%d: No such todo." % item
         sys.exit(1)
-    if isChild(tasks[item]): 
+    if isChild(tasks[item]):
         failChild('replace')
     text = setPriority(text)
     tasks[item] = text
@@ -804,7 +804,7 @@ def edit(file):
 def removeDuplicates():
     """Removes duplicate lines in the TODO file"""
     taskCopy = getTaskDict()
-    theSet = sets.Set(taskCopy.values())
+    theSet = set(taskCopy.values())
     dupCount = len(taskCopy) - len(theSet)
     if dupCount > 0:
         count = 0
@@ -1002,7 +1002,7 @@ def addParent(child, text):
         failChild("addParent with priority")
 
     # check this child doesn't already have a parent
-    if isChild(items[child]): 
+    if isChild(items[child]):
         print "Child has a parent already - try adding a child ", parent
         failChild("addParent with existing parent")
     items[child] = makeChild(items[child])
@@ -1017,7 +1017,7 @@ def newParent(child, parent):
     """Give a task to a parent task, make it a child"""
 
     items = getTaskList()
-    # check item has no children 
+    # check item has no children
     if not child + 1 == len(items) and isChild(items[child + 1]):
         failChild()
     childText = makeChild(items[child])
